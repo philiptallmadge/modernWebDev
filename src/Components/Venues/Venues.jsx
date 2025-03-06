@@ -38,10 +38,6 @@ const Venues = () => {
       ) : (
         <p>No venues found. Check back later!</p>
       )}
-      
-      <div style={{ marginTop: "20px" }}>
-        <Link to="/bands">Check out bands</Link>
-      </div>
     </div>
   );
 };

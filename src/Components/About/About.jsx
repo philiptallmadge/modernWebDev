@@ -8,18 +8,6 @@ const About = () => {
     <section>
       <h1>About</h1>
       <p>LeBron is the Goat, idk.</p>
-      
-      <div style={{ marginTop: "20px" }}>
-        {/* Button with programmatic navigation */}
-        <button onClick={() => navigate("/")}>
-          Return to Home
-        </button>
-        
-        {/* Link to shared page */}
-        <p>
-          Go to <Link to="/shared">Shared</Link>
-        </p>
-      </div>
     </section>
   );
 };

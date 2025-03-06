@@ -4,21 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 const Shared = () => {
   const navigate = useNavigate();
   return (
-    <section>
-      <h1>Shared</h1>
-      <p>LeBron is the Goat.</p>
-      
-      <div style={{ marginTop: "20px" }}>
-        {/* Button to go back home */}
-        <button onClick={() => navigate("/")}>
-          Return to Home
-        </button>
-        <p>
-          Go to
-          <Link to="/about" style={{ marginLeft: "10px" }}>About</Link>
-        </p>
-      </div>
-    </section>
+    <div class="navbar">
+        <ul>
+          <li class="navlinks"><Link to="/"> Home </Link></li>
+          <li class="navlinks"><Link to="/about"> About </Link></li>
+          <li class="navlinks"><Link to="/bands"> Bands </Link></li>
+          <li class="navlinks"><Link to="/venues"> Venues </Link></li>
+        </ul>
+    </div>
   );
 };
 
