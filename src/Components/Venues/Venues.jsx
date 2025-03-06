@@ -30,7 +30,7 @@ const Venues = () => {
           <ul>
             {venues.map((venue) => (
               <li key={venue.id}>
-                <strong>{venue.get("VenueName")}</strong> - {venue.get("Genre")}
+                <strong>{venue.get("Name")}</strong> - {venue.get("GenrePreferred")}
               </li>
             ))}
           </ul>
