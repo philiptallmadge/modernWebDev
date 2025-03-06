@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import Components from "./Components/Components.js";
+import Components from "./Components/Components.jsx";
 import * as Env from "./environments.js";
 import Parse from "parse";
 

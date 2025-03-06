@@ -1,31 +1,21 @@
 import Parse from "parse";
 /* SERVICE FOR PARSE SERVER OPERATIONS */
 
-// CREATE operation - new Band with Name
-export const createBand = (Name) => {
+// CREATE operation - new Band with Name and optional genere; there was a duplicate
+// declaration of createBand which was causing some issues so I merged them
+export const createBand = (Name, Genre = null) => {
   console.log("Creating: ", Name);
   const Band = Parse.Object.extend("Bands");
-  const Band = new Band();
-  // using setter to UPDATE the object
-  Band.set("Name", Name);
-  return Band.save().then((result) => {
-    // returns new Band object
+  const bandObject = new Band();
+  bandObject.set("BandName", Name);
+  if (Genre) {
+    bandObject.set("Genre", Genre);
+  }
+  return bandObject.save().then((result) => {
     return result;
   });
 };
-// Create Operation - new Band with Name and Genre
-export const createBand = (Name, Genre) => {
-    console.log("Creating: ", Name);
-    const Band = Parse.Object.extend("Bands");
-    const Band = new Band();
-    // using setter to UPDATE the object
-    Band.set("BandName", Name);
-    Band.set("Genre", Genre);
-    return Band.save().then((result) => {
-      // returns new Band object
-      return result;
-    });
-  };
+
 
 // READ operation - get Band by ID
 export const getById = (id) => {
