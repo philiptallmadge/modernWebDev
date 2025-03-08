@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllBands } from "../../Services/Bands.js";
 
+//display a list of bands
 const Bands = () => {
+  //state to store list of bands
   const [bands, setBands] = useState([]);
+  //state to manage loading status
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {

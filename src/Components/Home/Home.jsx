@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
+//landing page
 const Home = () => {
   return (
     <div>
@@ -24,4 +26,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home; //exporting home to use in routing- same in other components

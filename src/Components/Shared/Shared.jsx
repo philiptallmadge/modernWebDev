@@ -1,8 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
+//shared used for navbar
 const Shared = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //useNavigate allows programmatic navigation
   return (
     <div class="navbar">
         <ul>
