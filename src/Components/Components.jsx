@@ -25,7 +25,10 @@ export default function Components() {
           <Route path="/auth" element={<AuthModule />} />
           <Route path="/auth/register" element={<AuthRegister />} />
           <Route path="/auth/login" element={<AuthLogin />} />
-          
+          <Route
+          path="/"
+          element={<ProtectedRoute path="/" element={MainList} />}
+          />
           <Route path="*" element={<Navigate to="/auth" replace />} />
         </Routes>
       <Shared />
