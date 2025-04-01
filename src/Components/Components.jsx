@@ -6,16 +6,17 @@ import Venues from "./Venues/Venues.jsx";
 //Import React Router for handling navigation
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
-import AuthModule from "./Auth/Auth.js";
+import AuthModule from "./Auth/Auth";
 import AuthRegister from "./Auth/AuthRegister";
 import AuthLogin from "./Auth/AuthLogin";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.js";
-import MainList from "./Main/MainList.js";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import MainList from "./Main/MainList.jsx";
 
 //main routing structure for app
 export default function Components() {
   return (
     <Router>
+      <Shared />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -25,13 +26,9 @@ export default function Components() {
           <Route path="/auth" element={<AuthModule />} />
           <Route path="/auth/register" element={<AuthRegister />} />
           <Route path="/auth/login" element={<AuthLogin />} />
-          <Route
-          path="/"
-          element={<ProtectedRoute path="/" element={MainList} />}
-          />
+          <Route path="/loggedIn" element={<ProtectedRoute path="/Main/mainlist" element={MainList} />}/>
           <Route path="*" element={<Navigate to="/auth" replace />} />
         </Routes>
-      <Shared />
     </Router>
   );
 }
