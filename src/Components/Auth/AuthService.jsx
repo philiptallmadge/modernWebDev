@@ -4,9 +4,9 @@ import Parse from "parse";
 export const createUser = (newUser) => {
   const user = new Parse.User();
 
-  user.set("username", newUser.email);
-  user.set("firstName", newUser.firstName);
-  user.set("lastName", newUser.lastName);
+  user.set("username", newUser.username); //added username
+  user.set("bandName", newUser.bandName); //added bandname
+  user.set("genre", newUser.genre);       //added gener
   user.set("password", newUser.password);
   user.set("email", newUser.email);
 

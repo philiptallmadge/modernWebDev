@@ -7,8 +7,9 @@ const AuthRegister = () => {
   const navigate = useNavigate();
 
   const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
+    bandName: "",
+    genre: "",
+    username: "",
     email: "",
     password: ""
   });
@@ -19,7 +20,7 @@ const AuthRegister = () => {
   // redirect already authenticated users back to home
   useEffect(() => {
     if (checkUser()) {
-      alert("You are already logged in");
+      alert(`${userCreated.get("bandName")}, you successfully registered!`);
       navigate("/loggedIn");
     }
   }, [navigate]);
