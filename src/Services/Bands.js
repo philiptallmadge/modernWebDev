@@ -16,7 +16,12 @@ export const createBand = (Name, Genre = null) => {
   });
 };
 
-
+export const getByIds = (ids) => {
+  const Band = Parse.Object.extend("Bands");
+  const query = new Parse.Query(Band);
+  query.containedIn("objectId", ids);
+  return query.find();
+};
 // READ operation - get Band by ID
 export const getById = (id) => {
   const Band = Parse.Object.extend("Bands");
