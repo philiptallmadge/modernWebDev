@@ -46,11 +46,7 @@ const Login = () => {
         return;
       }
 
-      if (formData.userType === "band") {
-        navigate("/bands");
-      } else {
-        navigate("/venues");
-      }
+      navigate("/loggedIn");
     } catch (error) {
       console.error("Login failed:", error);
       setError("Login failed. Please check your credentials.");
