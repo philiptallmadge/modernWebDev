@@ -26,15 +26,16 @@ const Venues = () => {
       {loading ? (
         <p>Loading venues...</p>
       ) : venues.length > 0 ? (
-        <div>
-          <ul>
-            {venues.map((venue) => (
-              <li key={venue.id}>
-                <strong>{venue.get("Name")}</strong> - {venue.get("GenrePreferred")}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="event-list">
+          {venues.map((venue) => (
+            <li key={venue.id} className="event-card">
+              <h3 className="band-name">{venue.get("Name")}</h3>
+              <p className="band-genre">{venue.get("GenrePreferred")}</p>
+              <p className="venue-name">📍 Location: {venue.get("Location")}</p>
+              <p className="event-time">🎵 Preferred Genre: {venue.get("GenrePreferred")}</p>
+            </li>
+          ))}
+        </ul>
       ) : (
         <p>No venues found. Check back later!</p>
       )}
