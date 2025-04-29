@@ -55,3 +55,9 @@ export const removeVenue = (id) => {
   });
 };
 
+export const getByIds = (ids) => {
+  const Venue = Parse.Object.extend("Venues");
+  const query = new Parse.Query(Venue);
+  query.containedIn("objectId", ids);
+  return query.find();
+};

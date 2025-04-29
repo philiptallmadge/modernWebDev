@@ -11,10 +11,12 @@ import AuthRegister from "./Auth/AuthRegister";
 import AuthLogin from "./Auth/AuthLogin";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import MainList from "./Main/MainList.jsx";
+import Calendar from "./Calendar/Calendar.jsx";
 
 //main routing structure for app
 export default function Components() {
   return (
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", width: "100%",maxWidth: "1200px", margin: "0 auto", }}>
     <Router>
       <Shared />
         <Routes>
@@ -26,9 +28,11 @@ export default function Components() {
           <Route path="/auth" element={<AuthModule />} />
           <Route path="/auth/register" element={<AuthRegister />} />
           <Route path="/auth/login" element={<AuthLogin />} />
+          <Route path="/calendar" element = {<Calendar />} /> 
           <Route path="/loggedIn" element={<ProtectedRoute element={MainList} />}/>
           <Route path="*" element={<Navigate to="/auth" replace />} />
         </Routes>
     </Router>
+    </div>
   );
 }

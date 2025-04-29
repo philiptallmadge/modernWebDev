@@ -30,9 +30,9 @@ const Bands = () => {
         <p>Loading bands...</p>
       ) : bands.length > 0 ? (
         <div>
-          <ul>
+          <ul className="event-list">
             {bands.map((band) => (
-              <li key={band.id}>
+              <li key={band.id} className="event-card">
                 <strong>{band.get("BandName")}</strong> - {band.get("Genre")}
               </li>
             ))}

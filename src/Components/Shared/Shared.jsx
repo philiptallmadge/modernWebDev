@@ -8,11 +8,12 @@ const Shared = () => {
   return (
     <div className="navbar">
         <ul >
-          <li className="navlinks"><Link to="/"> Home </Link></li>
-          <li className="navlinks"><Link to="/about"> About </Link></li>
-          <li className="navlinks"><Link to="/bands"> Bands </Link></li>
-          <li className="navlinks"><Link to="/venues"> Venues </Link></li>
-          <li className="navlinks"><Link to="/loggedIn"> User </Link></li>
+          <li><Link className="navlinks" to="/"> Home </Link></li>
+          <li><Link className="navlinks" to="/bands"> Bands </Link></li>
+          <li><Link className="navlinks" to="/venues"> Venues </Link></li>
+          <li><Link className="navlinks" to="/calendar"> Calendar </Link></li>
+          <li><Link className="navlinks" to="/loggedIn"> User </Link></li>
+          <li><Link className="navlinks" to="/about"> About </Link></li>
         </ul>
     </div>
   );
