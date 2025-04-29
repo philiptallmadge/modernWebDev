@@ -45,7 +45,7 @@ const Venues = () => {
             <li key={venue.id} className="event-card">
               <h3 className="band-name">{venue.get("Name")}</h3>
               <p className="band-genre">{venue.get("GenrePreferred")}</p>
-              <p className="venue-name">📍 Location: {formatLocation(venue.get("Location"))}</p>
+              <p className="venue-name">📍 Location: {venue.get("Address")}</p>
               <p className="event-time">🎵 Preferred Genre: {venue.get("GenrePreferred")}</p>
             </li>
           ))}
