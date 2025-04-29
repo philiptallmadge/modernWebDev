@@ -8,17 +8,25 @@ const Bands = () => {
   const [bands, setBands] = useState([]);
   //state to manage loading status
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const fetchBands = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const results = await getAllBands();
+      console.log("Fetched bands:", results);
+      setBands(results);
+    } catch (error) {
+      console.error("Error fetching bands:", error);
+      setError("Failed to load bands. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
   
   useEffect(() => {
-    getAllBands()
-      .then((results) => {
-        setBands(results);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching bands:", error);
-        setLoading(false);
-      });
+    fetchBands();
   }, []);
   
   return (
@@ -28,16 +36,17 @@ const Bands = () => {
       
       {loading ? (
         <p>Loading bands...</p>
+      ) : error ? (
+        <p className="error-message">{error}</p>
       ) : bands.length > 0 ? (
-        <div>
-          <ul className="event-list">
-            {bands.map((band) => (
-              <li key={band.id} className="event-card">
-                <strong>{band.get("BandName")}</strong> - {band.get("Genre")}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="event-list">
+          {bands.map((band) => (
+            <li key={band.id} className="event-card">
+              <h3 className="band-name">{band.get("BandName")}</h3>
+              <p className="band-genre">{band.get("Genre")}</p>
+            </li>
+          ))}
+        </ul>
       ) : (
         <p>No bands found. Check back later!</p>
       )}
