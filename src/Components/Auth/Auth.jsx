@@ -5,11 +5,28 @@ import { checkUser } from "./AuthService";
 import { getCurrentUser } from "../../Services/Auth.js";
 import { getById } from "../../Services/Bands.js";
 import { getById as getVenueById } from "../../Services/Venues.js";
+// import the necessary components and icons from material UI
+import { 
+  Container, 
+  Paper, 
+  Typography, 
+  Button, 
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Grid
+} from "@mui/material";
+import { 
+  Login as LoginIcon, 
+  PersonAdd as RegisterIcon,
+  MusicNote as MusicIcon
+} from "@mui/icons-material";
 
 const AuthModule = () => {
-  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Check user and fetch their band/venue info
   useEffect(() => {
@@ -58,46 +75,112 @@ const AuthModule = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Container maxWidth="sm" sx={{ mt: 4 }}>
+        <Typography variant="h5" align="center">Loading...</Typography>
+      </Container>
+    );
   }
 
+  // styling
   if (userInfo) {
     return (
-      <div className="auth-container">
-        <h2>Welcome, {userInfo.username}!</h2>
-        {userInfo.entityInfo && (
-          <div className="user-info">
-            <h3>Your {userInfo.entityInfo.type}:</h3>
-            <p>Name: {userInfo.entityInfo.name}</p>
-            {userInfo.entityInfo.genre && <p>Genre: {userInfo.entityInfo.genre}</p>}
-            {userInfo.entityInfo.location && <p>Location: {userInfo.entityInfo.location}</p>}
-          </div>
-        )}
-        <div className="auth-buttons">
-          <Link to="/register">
-            <button className="auth-button">Register</button>
-          </Link>
-          <Link to="/login">
-            <button className="auth-button">Login</button>
-          </Link>
-        </div>
-      </div>
+      <Container maxWidth="sm" sx={{ mt: 4 }}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+          <Box sx={{ textAlign: "center", mb: 3 }}>
+            <MusicIcon sx={{ fontSize: 60, color: "primary.main", mb: 2 }} />
+            <Typography variant="h4" gutterBottom>
+              Welcome, {userInfo.username}!
+            </Typography>
+          </Box>
+          
+          {userInfo.entityInfo && (
+            <Card sx={{ mb: 3, bgcolor: "background.default" }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Your {userInfo.entityInfo.type}:
+                </Typography>
+                <Typography>Name: {userInfo.entityInfo.name}</Typography>
+                {userInfo.entityInfo.genre && (
+                  <Typography>Genre: {userInfo.entityInfo.genre}</Typography>
+                )}
+                {userInfo.entityInfo.location && (
+                  <Typography>Location: {userInfo.entityInfo.location}</Typography>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          <Grid container spacing={2} justifyContent="center">
+            <Grid item>
+              <Button
+                component={Link}
+                to="/register"
+                variant="contained"
+                startIcon={<RegisterIcon />}
+                size="large"
+              >
+                Register
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                component={Link}
+                to="/login"
+                variant="outlined"
+                startIcon={<LoginIcon />}
+                size="large"
+              >
+                Login
+              </Button>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Container>
     );
   }
 
   return (
-    <div className="auth-container">
-      <h2>Welcome to BandConnect</h2>
-      <p>Please choose an option:</p>
-      <div className="auth-buttons">
-        <Link to="/register">
-          <button className="auth-button">Register</button>
-        </Link>
-        <Link to="/login">
-          <button className="auth-button">Login</button>
-        </Link>
-      </div>
-    </div>
+    <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+        <Box sx={{ textAlign: "center", mb: 3 }}>
+          <MusicIcon sx={{ fontSize: 60, color: "primary.main", mb: 2 }} />
+          <Typography variant="h4" gutterBottom>
+            Welcome to BandConnect
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+            Connect with bands and venues in your area
+          </Typography>
+        </Box>
+
+        <Divider sx={{ my: 3 }} />
+
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item>
+            <Button
+              component={Link}
+              to="/register"
+              variant="contained"
+              startIcon={<RegisterIcon />}
+              size="large"
+            >
+              Register
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              component={Link}
+              to="/login"
+              variant="outlined"
+              startIcon={<LoginIcon />}
+              size="large"
+            >
+              Login
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
   );
 };
 
