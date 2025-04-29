@@ -14,20 +14,29 @@ const MainList = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
+                console.log("Fetching user info...");
                 const user = Parse.User.current();
+                console.log("Current user:", user);
+                
                 if (!user) {
+                    console.log("No user found, redirecting to auth");
                     navigate("/auth");
                     return;
                 }
 
                 const userType = user.get("userType");
+                console.log("User type:", userType);
                 let entityInfo = null;
 
                 // fetch band/venue info based on user type
                 if (userType === "band") {
+                    console.log("Fetching band info...");
                     const bandPointer = user.get("band_pointer");
+                    console.log("Band pointer:", bandPointer);
+                    
                     if (bandPointer) {
                         const band = await getById(bandPointer.id);
+                        console.log("Fetched band:", band);
                         entityInfo = {
                             type: "Band",
                             name: band.get("BandName"),
@@ -35,9 +44,13 @@ const MainList = () => {
                         };
                     }
                 } else if (userType === "venue") {
+                    console.log("Fetching venue info...");
                     const venuePointer = user.get("venue_pointer");
+                    console.log("Venue pointer:", venuePointer);
+                    
                     if (venuePointer) {
                         const venue = await getVenueById(venuePointer.id);
+                        console.log("Fetched venue:", venue);
                         entityInfo = {
                             type: "Venue",
                             name: venue.get("Name"),
@@ -46,12 +59,14 @@ const MainList = () => {
                     }
                 }
 
-                // Store all user info  in state
-                setUserInfo({
+                // Store all user info in state
+                const userInfoToSet = {
                     username: user.get("username"),
                     userType,
                     entityInfo
-                });
+                };
+                console.log("Setting user info:", userInfoToSet);
+                setUserInfo(userInfoToSet);
             } catch (error) {
                 console.error("Error fetching user info:", error);
             } finally {

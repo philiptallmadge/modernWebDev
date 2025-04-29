@@ -39,13 +39,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Attempting login with:", formData);
       const user = await loginUser(formData.username, formData.password);
+      console.log("Login successful, user:", user);
       
       if (user.get("userType") !== formData.userType) {
+        console.log("User type mismatch:", user.get("userType"), "vs", formData.userType);
         setError("Invalid user type. Please select the correct type.");
         return;
       }
 
+      console.log("Navigating to /loggedIn");
       navigate("/loggedIn");
     } catch (error) {
       console.error("Login failed:", error);

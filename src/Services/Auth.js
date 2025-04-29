@@ -26,7 +26,7 @@ export const registerUser = async (username, password, email, userType, addition
       const bandObject = new Band();
       bandObject.set("BandName", additionalInfo.name);
       bandObject.set("Genre", additionalInfo.genre);
-      bandObject.set("User", userResult); // linj band to user
+      bandObject.set("User", userResult); // link band to user
       const savedBand = await bandObject.save();
       console.log("Band created successfully:", savedBand);
 
@@ -43,7 +43,7 @@ export const registerUser = async (username, password, email, userType, addition
       // Store the address as a string
       venueObject.set("Address", additionalInfo.location);
       
-      // Ccreate geopoint for location and set it to 0,0 for now
+      // Create geopoint for location and set it to 0,0 for now
       const location = new Parse.GeoPoint(0, 0);
       venueObject.set("Location", location);
       

@@ -42,5 +42,5 @@ export const loginUser = (currUser) => {
 
 export const checkUser = () => {
   const user = Parse.User.current();
-  return user ? user.get("authenticated") ?? false : false; // better
+  return user !== null; // just check if there is a current user
 };
