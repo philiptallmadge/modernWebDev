@@ -9,6 +9,8 @@ export const createUser = (newUser) => {
   user.set("genre", newUser.genre);       //added gener
   user.set("password", newUser.password);
   user.set("email", newUser.email);
+  user.set("venue_pointer", newUser.venue_pointer);
+  user.set("band_pointer", newUser.band_pointer);
 
   console.log("User: ", user);
   return user
@@ -27,7 +29,8 @@ export const loginUser = (currUser) => {
 
   user.set("password", currUser.password);
   user.set("username", currUser.email);
-
+  user.set("venue_pointer", currUser.venue_pointer);
+  user.set("band_pointer", currUser.band_pointer);
   console.log("User: ", user);
   console.log();
   return user

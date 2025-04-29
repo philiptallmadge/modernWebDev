@@ -3,26 +3,17 @@ import Parse from "parse";
 
 // CREATE operation - new Venue with Name
 // Merged the two createVenue functiosn into one
-export const createEvent = (date, venueId = null, bandId = null) => {
+export const createEvent = (date, venue = null) => {
   console.log("Creating: ", date);
   const Event = Parse.Object.extend("Events");
   const eventObject = new Event();
   eventObject.set("Date", date);
-
-  // If VenueId is provided, create a pointer to the existing Venue
-  if (venueId) {
-    const VenuePointer = Parse.Object.extend("Venues");
+  // If VenueId is provided, create a  pointer to the existing Venue
+  if (venue) {
+    /*const VenuePointer = Parse.Object.extend("Venues");
     const venuePointer = new VenuePointer();
-    venuePointer.id = venueId;  // Use the Venue ID to create the pointer
-    eventObject.set("Venue", venuePointer);  // Set the venue pointer in the Event
-  }
-
-  // If BandId is provided, create a pointer to the existing Band
-  if (bandId) {
-    const BandPointer = Parse.Object.extend("Bands");
-    const bandPointer = new BandPointer();
-    bandPointer.id = bandId;  // Use the Band ID to create the pointer
-    eventObject.set("Band", bandPointer);  // Set the band pointer in the Event
+    venuePointer.id = venue;  */  // Use the Venue ID to create the pointer
+    eventObject.set("Venue", venue);  // Set the venue pointer in the Event
   }
 
   // Save the Event object
@@ -82,19 +73,19 @@ export const updateEvent = (id, band, venue) => {
     .then((event) => {
       // Check if band is provided (not null) and update the band field if necessary
       if (band !== null) {
-        const Band = Parse.Object.extend("Bands");
+        /*const Band = Parse.Object.extend("Bands");
         const bandPointer = new Band();
-        bandPointer.id = band;  // Assuming `band` is the band ID passed into the function
-        event.set("Band", bandPointer);  // Update the band pointer in the Event
+        bandPointer.id = band; */ // Assuming `band` is the band ID passed into the function
+        event.set("Band", band);  // Update the band pointer in the Event
       }
 
       // Check if venue is provided (not null) and update the venue field if necessary
-      if (venue !== null) {
+      /*if (venue !== null) {
         const Venue = Parse.Object.extend("Venues");
         const venuePointer = new Venue();
         venuePointer.id = venue;  // Assuming `venue` is the venue ID passed into the function
         event.set("Venue", venuePointer);  // Update the venue pointer in the Event
-      }
+      }*/
 
       // Save the updated Event object
       return event.save();

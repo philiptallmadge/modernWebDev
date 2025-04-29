@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Parse from "parse";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // for basic styling
 import { getAllEvents, createEvent, updateEvent} from "../../Services/Events.js"; 
@@ -16,6 +17,7 @@ const Calendar = () => {
     const [bands, setBands] = useState({});
     const [venues, setVenues] = useState({});
     const [userAuthenticated, setUserAuthenticated] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
   // Fetch events from backend
   useEffect(() => {
     const fetchEventsAndRelatedData = async () => {
@@ -23,6 +25,9 @@ const Calendar = () => {
         const fetchedEvents = await getAllEvents();
         setEvents(fetchedEvents);
         setUserAuthenticated(checkUser());
+        const user = Parse.User.current(); // new
+        setUserAuthenticated(!!user);      // new
+        setCurrentUser(user);              // new
         // Extract unique Band and Venue IDs
         const bandIds = [...new Set(fetchedEvents.map((event) => event.get("Band")?.id))];
         const venueIds = [...new Set(fetchedEvents.map((event) => event.get("Venue")?.id))];
@@ -53,6 +58,9 @@ const Calendar = () => {
 
     fetchEventsAndRelatedData();
   }, []);
+  const showCreateEventButton =  userAuthenticated && currentUser?.get("venue_pointer"); 
+  const showJoinEventButton = userAuthenticated && currentUser?.get("band_pointer");
+  const hasValidUserVenue = currentUser && currentUser.venue && currentUser.venue.id; 
 
   // Helper function to format events into an array of dates
   const getEventDates = () => {
@@ -78,14 +86,9 @@ const Calendar = () => {
   };
   const handleCreateEvent = () => {
     const dateAndTime = combineDateAndTime(selectedDate, selectedTime);
-    if (!venueId) {
-      alert("Please provide  a Band or a Venue.");
-      return;
-    }
-    
-
+    console.log(currentUser);
     // Call the createEvent service to create a new event
-    createEvent(dateAndTime, venueId, bandId)
+    createEvent(dateAndTime, currentUser.get("venue_pointer"), null)
       .then((result) => {
         console.log("Event created successfully:", result);
         alert("Event created successfully!");
@@ -96,17 +99,8 @@ const Calendar = () => {
       });
   };
   const handleJoinEvent = async (eventId) => {
-    if (!userAuthenticated) {
-      alert("You must be logged in to join an event.");
-      return;
-    }
-    if (!currentUser?.band?.id) {
-      alert("You must have a band to join.");
-      return;
-    }
-
     try {
-      await updateEvent(eventId, currentUser.band.id, null); // new: use updateEvent instead of modifyEvent
+      await updateEvent(eventId, currentUser.get("band_pointer"), null); // new: use updateEvent instead of modifyEvent
       alert("Successfully joined the event!");
       const updatedEvents = await getAllEvents();
       setEvents(updatedEvents);
@@ -116,7 +110,7 @@ const Calendar = () => {
     }
   };
   const eventDates = getEventDates(); // Get all event dates
-  const showCreateEventButton = venueId && userAuthenticated && hasValidUserVenue;
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>Event Calendar</h1>
@@ -171,7 +165,7 @@ const Calendar = () => {
             
             const bandName = band ? band.get("BandName") : "No band yet, still available";
             const bandGenre = band ? band.get("Genre") : "";
-            const venueName = venue ? venue.get("Name") : "No band yet, still available";
+            const venueName = venue ? venue.get("Name") : "Venue_Loading";
             const eventTime = new Date(event.get("Date")).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       
             return (
@@ -182,7 +176,7 @@ const Calendar = () => {
                 )}
                 <p className="venue-name">🎵 Venue: {venueName}</p>
                 <p className="event-time">🕒 Time: {eventTime}</p>
-                {!band  && userAuthenticated && currentUser?.band?.id ( 
+                {!band && showJoinEventButton && ( 
                     <button onClick={() => handleJoinEvent(event.id)}>
                       Join This Slot
                     </button>
