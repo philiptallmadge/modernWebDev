@@ -2,6 +2,10 @@
 -Philip Tallmadge
 -Cesar De Leon
 
+# Additional Packages
+    npm install @mui/material @emotion/react @emotion/styled
+    npm install react-calendar
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
